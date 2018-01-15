@@ -45,13 +45,13 @@ public class Main {
         try {
             while((line = reader.readLine()) != null) {
 
-                if ( line.contains(("START innlasting av"))) {
+                if ( line.contains("START innlasting av")) {
 //                    internallinecounter = 0;
-                    currenttable = line.substring(line.indexOf(" av ") + 3,line.length());
+
+                    currenttable = line.substring(line.indexOf(" av ") + 4,line.length());
                     tablecounter ++;
                     rowsaffectedpertable = 0;
                     errorcounterpertable = 0;
-
                 } else if ("".equals(line.trim())){
                     //do nothing
                 } else if (line.contains("SLUTT innlasting")){
@@ -61,15 +61,28 @@ public class Main {
                     // do nothing
                     rowsaffectedpertable ++;
                 } else {
-                    errorcounterpertable ++ ;
+
                     // problem
                     // System.out.println("currenttable" + currenttable + " got errorlog: " + rowsaffectedpertable*2) ;
 
                     // en feil tar 3 linjer og en vanlig rad tar 2 liner
-                    System.out.println("currenttable" + currenttable + " got error : " + rowsaffectedpertable*2) ;
-                   // System.out.println("To find relevant error linje use lineno from log minus lineno where :r is + tablecounter*2(which is) " + tablecounter );
+                    System.out.println(currenttable + " got error at line in csv file : " + ((rowsaffectedpertable*2)+1 + errorcounterpertable*2)) ;
+                    String followUp =  reader.readLine();
+                    System.out.println(followUp);
+
+                            if (followUp.startsWith("The INSERT statement conflicted")) {
+                                String followup2 = reader.readLine();
+                                System.out.println(  followup2);
+                            }
+                    System.out.println("");
+                    errorcounterpertable ++ ;
                 }
+
+
+
+
             }
+
             } finally {
             reader.close();
         }
