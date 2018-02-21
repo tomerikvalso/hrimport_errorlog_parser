@@ -54,7 +54,7 @@ public class Main {
                     errorcounterpertable = 0;
                 } else if ("".equals(line.trim())){
                     //do nothing
-                } else if (line.contains("SLUTT innlasting")){
+                } else if (line.contains("SLUTT innlasting") || line.contains("STOPP innlasting")){
                     // do nothing
                 }
                 else if ( line.contains(" row(s) affected")){
@@ -66,7 +66,7 @@ public class Main {
                     // System.out.println("currenttable" + currenttable + " got errorlog: " + rowsaffectedpertable*2) ;
 
                     // en feil tar 3 linjer og en vanlig rad tar 2 liner
-                    System.out.println(currenttable + " got error at line in csv file : " + ((rowsaffectedpertable*2)+1 + errorcounterpertable*2)) ;
+                    System.out.println(currenttable + " got possible error at line in csv file : " + ((rowsaffectedpertable*2)+1 + errorcounterpertable*2) + ". Line from logfile was " + line) ;
                     String followUp =  reader.readLine();
                     System.out.println(followUp);
 
